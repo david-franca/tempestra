@@ -9,9 +9,17 @@ const config: Config = {
   theme: {
     extend: {
       backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+        cloud: 'url(/bg.png)',
+      },
+      colors: {
+        text: {
+          primary: '#FFF',
+          secondary: '#C2BFF4',
+          tertiary: '#DAD8F7',
+        },
+      },
+      fontFamily: {
+        lato: ['var(--font-lato)'],
       },
     },
   },
