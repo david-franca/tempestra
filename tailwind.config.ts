@@ -8,21 +8,19 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        cloud: 'url(/bg.png)',
-      },
       colors: {
         text: {
-          primary: '#FFF',
-          secondary: '#C2BFF4',
-          tertiary: '#DAD8F7',
+          primary: "#FFF",
+          secondary: "#C2BFF4",
+          tertiary: "#DAD8F7",
+          quaternary: "#87EBCD",
         },
+        surface: "#6D67D0",
       },
       fontFamily: {
-        lato: ['var(--font-lato)'],
+        lato: ["var(--font-lato)"],
       },
     },
   },
-  plugins: [],
 };
 export default config;
