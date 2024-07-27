@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { IoSunny } from "react-icons/io5";
 
-import { Center, Flex, Text } from "@chakra-ui/react";
+import { Center, Flex, Icon, Text } from "@chakra-ui/react";
 
 interface SunTimeProps {
-  sunrise?: number;
-  sunset?: number;
+  sunrise?: number[];
+  sunset?: number[];
 }
 
 export function SunTime({ sunrise, sunset }: Readonly<SunTimeProps>) {
@@ -21,6 +21,15 @@ export function SunTime({ sunrise, sunset }: Readonly<SunTimeProps>) {
 
   const currentSunrise = Number(sunrise);
   const currentSunset = Number(sunset);
+
+  function formateDate(date?: number[]) {
+    if (!date) {
+      return "00:00";
+    }
+    const d = new Date(date[0] * 1000);
+
+    return d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+  }
 
   const getRotationDegrees = (hour: number) => {
     if (!sunrise || !sunset) {
@@ -59,7 +68,14 @@ export function SunTime({ sunrise, sunset }: Readonly<SunTimeProps>) {
           justifyContent="center"
         >
           <div className="w-48 md:w-64 h-48 md:h-64 border-2 bg-yellow-200 bg-opacity-25 border-yellow-400 rounded-full"></div>
-          {/* <IoSunny className="text-2xl md:text-3xl text-yellow-500" /> */}
+          <Icon
+            as={IoSunny}
+            color="yellow.500"
+            pos="absolute"
+            rotate={rotationDegrees}
+            w={8}
+            h={8}
+          />
         </Flex>
         <Flex
           justifyContent="space-between"
@@ -67,8 +83,8 @@ export function SunTime({ sunrise, sunset }: Readonly<SunTimeProps>) {
           w="full"
           color="white"
         >
-          <Text fontSize={["sm", "md"]}>{sunrise}</Text>
-          <Text fontSize={["sm", "md"]}>{sunset}</Text>
+          <Text fontSize={["sm", "md"]}>{formateDate(sunrise)}</Text>
+          <Text fontSize={["sm", "md"]}>{formateDate(sunset)}</Text>
         </Flex>
         {/* Hora do pôr do sol */}
       </Center>

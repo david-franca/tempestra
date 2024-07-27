@@ -78,7 +78,7 @@ export function Now({ data }: Readonly<NowProps>) {
       <Center flexDir="column" gap={2}>
         <Center className="justify-center items-center relative">
           <Heading fontWeight="bold" color="white" fontSize="8xl">
-            {data?.current.temperature2m}
+            {data?.current.temperature_2m.toFixed(1)}
           </Heading>
           <Text
             pos="absolute"
@@ -94,16 +94,19 @@ export function Now({ data }: Readonly<NowProps>) {
         </Center>
         <Flex gap={2}>
           <Text fontWeight="bold" color="white" fontSize="2xl">
-            {data?.daily.temperature2mMax[0].toFixed(1)}°
+            {data?.daily.temperature_2m_max[0].toFixed(1)}°
           </Text>
           <Text fontWeight="bold" color="gray.400" fontSize="2xl">
-            {data?.daily.temperature2mMin[0].toFixed(1)}°
+            {data?.daily.temperature_2m_min[0].toFixed(1)}°
           </Text>
         </Flex>
       </Center>
       <Grid templateColumns={["repeat(1, 1fr)", "repeat(3, 1fr)"]} gap={2}>
-        <Item type="wind" value={data?.current.windSpeed10m ?? 0} />
-        <Item type="humidity" value={data?.current.relativeHumidity2m ?? 0} />
+        <Item
+          type="wind"
+          value={data?.current.wind_speed_10m.toFixed(1) ?? 0}
+        />
+        <Item type="humidity" value={data?.current.relative_humidity_2m ?? 0} />
         <Item type="rain" value={data?.current.precipitation ?? 0} />
       </Grid>
     </Flex>

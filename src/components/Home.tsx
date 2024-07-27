@@ -44,7 +44,7 @@ export function HomePage() {
           />
         </GridItem>
         <GridItem colSpan={[7, 4]} rowSpan={1}>
-          <WeekWeather data={weatherData?.daily} />
+          <WeekWeather data={weatherData} />
         </GridItem>
       </Grid>
     </Center>

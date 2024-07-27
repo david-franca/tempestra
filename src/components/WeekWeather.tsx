@@ -5,15 +5,15 @@ import Image from "next/image";
 import { Center, Flex, Text } from "@chakra-ui/react";
 
 interface DayWeatherProps {
-  date: Date;
+  date: number;
   tempMin: string;
   tempMax: string;
   icon: keyof typeof icons;
   isDay: boolean;
 }
 
-const getDayName = (dateString: Date) => {
-  const date = new Date(dateString);
+const getDayName = (dateString: number) => {
+  const date = new Date(dateString * 1000);
   const today = new Date();
   const tomorrow = new Date(today);
   tomorrow.setDate(today.getDate() + 1);
@@ -77,7 +77,7 @@ function DayWeather({
 }
 
 interface WeekWeatherProps {
-  data?: WeatherData["daily"] | null;
+  data?: WeatherData | null;
 }
 
 const generateRandomId = () => {
@@ -98,13 +98,13 @@ export function WeekWeather({ data }: Readonly<WeekWeatherProps>) {
       bg="purple.500"
       overflowX={["scroll", "hidden"]}
     >
-      {data?.time.slice(2, 8).map((day, index) => (
+      {data?.daily.time.slice(1, 8).map((day, index) => (
         <DayWeather
           key={generateRandomId()}
           date={day}
-          tempMin={data?.temperature2mMin[index].toFixed(1)}
-          tempMax={data?.temperature2mMax[index].toFixed(1)}
-          icon={data?.weatherCode[index] as keyof typeof icons}
+          tempMin={data?.daily.temperature_2m_min[index].toFixed(1)}
+          tempMax={data?.daily.temperature_2m_max[index].toFixed(1)}
+          icon={data?.daily.weather_code[index] as keyof typeof icons}
           isDay={index === 0}
         />
       ))}

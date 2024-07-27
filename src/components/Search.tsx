@@ -1,9 +1,10 @@
 import { ChangeEvent, useEffect, useRef, useState } from "react";
-import { IoSearch } from "react-icons/io5";
+import { IoLocation } from "react-icons/io5";
 
 import { GeolocationData, Result } from "@/types";
 import {
   Box,
+  Center,
   Input,
   List,
   ListIcon,
@@ -83,7 +84,13 @@ export const SearchComponent = () => {
   }, [selectedItem]);
 
   return (
-    <VStack spacing={4} width="full" mx="auto" color="white">
+    <VStack
+      spacing={4}
+      width="full"
+      mx="auto"
+      color="white"
+      position="relative"
+    >
       <Input
         placeholder="Search..."
         value={query}
@@ -94,15 +101,20 @@ export const SearchComponent = () => {
         <Box
           ref={resultsRef}
           position="absolute"
+          top="100%"
           zIndex="10"
           border="1px"
+          mt={2}
+          w="full"
           borderColor="gray.200"
           borderRadius="md"
           boxShadow="lg"
           bg="teal.900"
         >
           {loading ? (
-            <Spinner />
+            <Center p={4}>
+              <Spinner />
+            </Center>
           ) : (
             <List spacing={3}>
               {results.map((result) => (
@@ -114,7 +126,7 @@ export const SearchComponent = () => {
                   borderRadius="md"
                   onClick={() => handleItemClick(result)}
                 >
-                  <ListIcon as={IoSearch} color="teal.500" />
+                  <ListIcon as={IoLocation} color="teal.500" />
                   {`${result.name}, ${
                     result.admin1 ? result.admin1 + "," : ""
                   } ${result.country_code}`}

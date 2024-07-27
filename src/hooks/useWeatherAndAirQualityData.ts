@@ -1,12 +1,13 @@
 // useWeatherData.ts
 import { useState, useEffect } from "react";
 import { fetchWeatherApi } from "openmeteo";
-import { AirQualityData, WeatherData } from "@/types";
+import { AirQualityData, Weather } from "@/types";
 import { useSelectedItem } from "@/context/SelectedItemContext";
+import { fetchWeatherData } from "@atombrenner/openmeteo";
 
 const useWeatherData = () => {
   const { selectedItem } = useSelectedItem();
-  const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
+  const [weatherData, setWeatherData] = useState<Weather | null>(null);
   const [airQualityData, setAirQualityData] = useState<AirQualityData | null>(
     null
   );
@@ -14,22 +15,22 @@ const useWeatherData = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const latitude = selectedItem?.latitude ?? "0.00";
-    const longitude = selectedItem?.longitude ?? "0.00";
+    const latitude = selectedItem?.latitude ?? 0;
+    const longitude = selectedItem?.longitude ?? 0;
 
     const fetchWeather = async () => {
       try {
-        const params = {
+        const data = await fetchWeatherData({
           latitude,
           longitude,
           timezone: "America/Sao_Paulo",
           current: [
             "temperature_2m",
             "relative_humidity_2m",
-            "precipitation_probability",
             "weather_code",
             "wind_speed_10m",
             "is_day",
+            "precipitation",
           ],
           daily: [
             "weather_code",
@@ -38,54 +39,9 @@ const useWeatherData = () => {
             "sunrise",
             "sunset",
           ],
-          forecast_days: 8,
-        };
-        const url = "https://api.open-meteo.com/v1/forecast";
-        const responses = await fetchWeatherApi(url, params);
-        const response = responses[0];
+        });
 
-        const utcOffsetSeconds = response.utcOffsetSeconds();
-        const current = response.current()!;
-        const daily = response.daily()!;
-
-        const range = (start: number, stop: number, step: number): number[] => {
-          const length = Math.ceil((stop - start) / step); // Use Math.ceil to ensure we cover the entire range
-          const result: number[] = [];
-
-          for (let i = 0; i < length; i++) {
-            result.push(start + i * step);
-          }
-
-          return result;
-        };
-
-        const weatherData: WeatherData = {
-          current: {
-            time: new Date((Number(current.time()) + utcOffsetSeconds) * 1000),
-            temperature2m: current.variables(0)!.value().toFixed(1),
-            relativeHumidity2m: current.variables(1)!.value(),
-            precipitation: current.variables(2)!.value(),
-            weatherCode: current.variables(3)!.value(),
-            windSpeed10m: current.variables(4)!.value().toFixed(1),
-            isDay: current.variables(5)!.value() === 1,
-          },
-          daily: {
-            time: range(
-              Number(daily.time()),
-              Number(daily.timeEnd()),
-              daily.interval()
-            ).map((t) => new Date((t + utcOffsetSeconds) * 1000)),
-            weatherCode: daily.variables(0)!.valuesArray()!,
-            temperature2mMax: daily.variables(1)!.valuesArray()!,
-            temperature2mMin: daily.variables(2)!.valuesArray()!,
-            sunrise: daily.variables(3)!.values(0)!,
-            sunset: daily.variables(4)!.values(0)!,
-          },
-        };
-
-        console.log(weatherData);
-
-        setWeatherData(weatherData);
+        setWeatherData(data);
       } catch (error) {
         setError("Failed to fetch weather data");
       }

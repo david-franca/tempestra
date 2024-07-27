@@ -1,22 +1,4 @@
-export interface WeatherData {
-  current: {
-    time: Date;
-    temperature2m: string;
-    relativeHumidity2m: number;
-    precipitation: number;
-    weatherCode: number;
-    windSpeed10m: string;
-    isDay: boolean;
-  };
-  daily: {
-    time: Date[];
-    weatherCode: Float32Array;
-    temperature2mMax: Float32Array;
-    temperature2mMin: Float32Array;
-    sunrise: number;
-    sunset: number;
-  };
-}
+import { WeatherData as W } from "@atombrenner/openmeteo";
 
 export interface AirQualityData {
   current: {
@@ -55,3 +37,18 @@ export interface Result {
   admin2?: string;
   admin3?: string;
 }
+
+export type WeatherData = W<
+  never,
+  | "weather_code"
+  | "temperature_2m_max"
+  | "temperature_2m_min"
+  | "sunrise"
+  | "sunset",
+  | "temperature_2m"
+  | "relative_humidity_2m"
+  | "weather_code"
+  | "wind_speed_10m"
+  | "is_day"
+  | "precipitation"
+>;
