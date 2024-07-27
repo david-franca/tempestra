@@ -1,13 +1,13 @@
 // useWeatherData.ts
 import { useState, useEffect } from "react";
 import { fetchWeatherApi } from "openmeteo";
-import { AirQualityData, Weather } from "@/types";
+import { AirQualityData, WeatherData } from "@/types";
 import { useSelectedItem } from "@/context/SelectedItemContext";
 import { fetchWeatherData } from "@atombrenner/openmeteo";
 
 const useWeatherData = () => {
   const { selectedItem } = useSelectedItem();
-  const [weatherData, setWeatherData] = useState<Weather | null>(null);
+  const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
   const [airQualityData, setAirQualityData] = useState<AirQualityData | null>(
     null
   );
