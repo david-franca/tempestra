@@ -10,6 +10,7 @@ export function ErrorIcon() {
       centerContent
       justifyContent="center"
       minHeight="100vh"
+      minWidth="100vw"
       bg="blue.900"
     >
       <Lottie animationData={errorIcon} loop={true} />

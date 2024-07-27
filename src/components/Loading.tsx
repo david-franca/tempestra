@@ -10,6 +10,7 @@ export function Loading() {
       centerContent
       justifyContent="center"
       minHeight="100vh"
+      minWidth="100vw"
       bg="blue.900"
     >
       <Lottie animationData={sun} loop={true} />
