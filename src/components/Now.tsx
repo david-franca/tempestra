@@ -69,10 +69,11 @@ export function Now({ data }: Readonly<NowProps>) {
         'linear-gradient(180deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.5) 100%), url("/bg.png")'
       }
       backgroundRepeat="no-repeat"
-      backgroundPosition="-153.664px -10px"
-      backgroundSize="164.027% 109.583%"
+      backgroundPosition="center"
+      backgroundSize="cover"
       justifyContent="space-between"
       gap={4}
+      boxShadow="dark-lg"
     >
       <SearchComponent />
       <Center flexDir="column" gap={2}>

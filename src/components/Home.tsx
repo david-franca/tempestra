@@ -24,7 +24,12 @@ export function HomePage() {
       justifyContent="center"
       minHeight={["auto", "100vh"]}
       w="full"
-      bg="blue.900"
+      bg={
+        'linear-gradient(180deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.5) 100%), url("/clouds.svg")'
+      }
+      backgroundRepeat="no-repeat"
+      backgroundPosition="center"
+      backgroundSize="cover"
     >
       <Grid
         templateRows={["repeat(1, 1fr)", "repeat(2, 1fr)"]}

@@ -95,8 +95,11 @@ export function WeekWeather({ data }: Readonly<WeekWeatherProps>) {
       justifyContent="space-between"
       alignItems="center"
       borderRadius="lg"
-      bg="purple.500"
+      bg={
+        "linear-gradient(180deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.5) 100%), #0398fc"
+      }
       overflowX={["scroll", "hidden"]}
+      boxShadow="dark-lg"
     >
       {data?.daily.time.slice(1, 8).map((day, index) => (
         <DayWeather

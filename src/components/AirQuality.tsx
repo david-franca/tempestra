@@ -39,7 +39,6 @@ export function AirQuality({ data }: Readonly<AirQualityProps>) {
   return (
     <Flex
       rounded="xl"
-      bg="purple.500"
       w="full"
       flexDir="column"
       h="full"
@@ -47,6 +46,13 @@ export function AirQuality({ data }: Readonly<AirQualityProps>) {
       justifyContent="space-between"
       p={8}
       color="white"
+      bg={
+        'linear-gradient(180deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.5) 100%), url("/air.png")'
+      }
+      backgroundRepeat="no-repeat"
+      backgroundPosition="center"
+      backgroundSize="cover"
+      boxShadow="dark-lg"
     >
       <Center gap={2}>
         <IoLeaf />
